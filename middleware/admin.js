@@ -1,6 +1,5 @@
 const Admin = require("../model/admin")
 const jwt=require("jsonwebtoken");
-const ADMIN_JWT_SECRET=process.env.ADMIN_JWT_SECRET
 
 const isvalidAdmin=async(req,res,next)=>{
     try{

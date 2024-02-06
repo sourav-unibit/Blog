@@ -24,7 +24,7 @@ const blog=new mongoose.Schema({
     status:{
         type:Object,
         default:{type:"active",action:1}
-        //active 1 ,drafts 2,delete -1
+        //active 1 ,drafts 2,delete -1 updated 3,
     },
     bigText:{
         type:String,

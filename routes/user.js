@@ -1,4 +1,4 @@
-const { handleShowBlog, handleShowDetails, handleShowLatestBlog, handlePhoneNumberValid, handleSignUp, handleSignIn, handleAddFavouriteBlog, handleDecryptData, handleSearch } = require("../controller/user");
+const { handleShowBlog, handleShowDetails, handleShowLatestBlog, handlePhoneNumberValid, handleSignUp, handleSignIn, handleAddFavouriteBlog, handleDecryptData, handleSearch, handleTranstion } = require("../controller/user");
 const isvalidUser = require("../middleware/user");
 
 const route=require("express").Router();
@@ -11,5 +11,6 @@ route.post('/signin',handleSignIn)
 route.post('/favourite/:_id',isvalidUser, handleAddFavouriteBlog)
 route.post('/decryptdata', handleDecryptData)
 route.get('/search/:value', handleSearch)
+route.get('/trnstion', handleTranstion)
 
 module.exports=route

@@ -147,7 +147,7 @@ const handleSignIn=async(req,res)=>{
         res.status(500).json({message:"something worng..."})
     }
 }
-//processing 
+//this api not ready it's only understaning of transition of mongoose 
 const handleAddFavouriteBlog=async(req,res)=>{
     try{
         const _id=req.params._id;
@@ -210,5 +210,27 @@ const handleSearch=async(req,res)=>{
     }
 }
   
+const handleTranstion=async(req,res)=>{
+    const session=await mongoose.startSession();
+    session.startTransaction();
+    try{
+        const {blog_id,user_id}=req.body;
+        // console.log({blog_id,user_id})
+    const blog=await Blog.findByIdAndUpdate(blog_id,{$push:{favourite:{user_id}}},{session})
+    const user=await User.findByIdAndUpdate(user_id,{$push:{favourite:{blog_id}}},{session})
+    // if(!blog||!user){
+    //     res.status(500).json({message:"failed to update data"})
+    // }
+    console.log({blog,user});
+    await session.commitTransaction();
+    res.status(200).json({message:"success"})
+    }catch(error){
+        await session.abortTransaction();
+     console.log("error form handleTranstion ->",error)
+     res.status(500).json("somthing wrong....")
+    }finally{
+        session.endSession();
+    }
+}
 
-module.exports={handleShowBlog,handleShowDetails,handleShowLatestBlog,handlePhoneNumberValid,handleSignUp,handleSignIn,handleAddFavouriteBlog,handleDecryptData,handleSearch}
+module.exports={handleShowBlog,handleShowDetails,handleShowLatestBlog,handlePhoneNumberValid,handleSignUp,handleSignIn,handleAddFavouriteBlog,handleDecryptData,handleSearch,handleTranstion}

@@ -126,7 +126,7 @@ const handleEditBlog = async (req, res) => {
     //here one problem if user update with same data actually it's not updated but in status we updated
     const updateBlog = await Blog.updateOne(
       { _id },
-      { $set: { ...updateData, status: { type: "updated", action: 2 } } }
+      { $set: { ...updateData, status: { type: "updated", action: 3} } }
     );
     if (updateBlog.modifiedCount) {
       return res.status(200).json({ message: "Blog edited successfuly" });
@@ -212,6 +212,7 @@ const handleShowBlogByAdmin = async (req, res) => {
     res.status(500).json("somthing wrong....");
   }
 };
+// this only for testing 
 const handleTestInjection=async(req,res)=>{
     try{
     const inputData=req.body;
