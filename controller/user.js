@@ -22,6 +22,10 @@ const handleShowBlog=async(req,res)=>{
         console.log({category})
         const data=await Blog.find({'status.action':{$ne:-1},'category.action': category?Number(category):1}).skip(skip).limit(limit).select("title description image");
         console.log("book data length",data.length)
+        // when data is empty
+        if(!data.length){
+            return res.status(200).json({message:"nothing bolg are present"})
+           }
         const encryptText= CryptoJS.AES.encrypt(JSON.stringify(data),ENCRYPTED_SECRET_KEY).toString()
         // console.log(encryptText)
       

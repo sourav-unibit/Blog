@@ -202,7 +202,10 @@ const handleShowBlogByAdmin = async (req, res) => {
       .limit(limit)
       .select("title description image category status");
     console.log("book data length", data.length);
-
+    // when data is empty
+   if(!data.length){
+    return res.status(200).json({message:"nothing bolg are present"})
+   }
     const encryptText= CryptoJS.AES.encrypt(JSON.stringify(data),ENCRYPTED_SECRET_KEY).toString()
     // console.log(encryptText)
     res.status(200).json({data:encryptText})
